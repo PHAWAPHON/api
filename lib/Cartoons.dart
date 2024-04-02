@@ -1,4 +1,3 @@
-
 class Cartoons {
   final String? title;
   final int? year;
@@ -9,7 +8,7 @@ class Cartoons {
   final int? episodes;
   final String? image;
   final int? id;
-  bool? isFavorite;
+  bool isFavorite;
 
   Cartoons({
     required this.title,
@@ -35,7 +34,6 @@ class Cartoons {
       episodes: json['episodes'],
       image: json['image'],
       id: json['id'],
-      isFavorite: json['isFavorite'],
     );
   }
 }

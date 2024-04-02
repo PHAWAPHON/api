@@ -66,9 +66,8 @@ class _ApiPageState extends State<ApiPage> {
                                 Cartoons.genre ?? [],
                                 Cartoons.episodes ?? 0,
                                 Cartoons.image ?? '',
-                                Cartoons.runtime_in_minutes ?? 0
-                                ,Cartoons);
-                                
+                                Cartoons.runtime_in_minutes ?? 0,
+                                Cartoons);
                           });
                     },
                   )),
@@ -76,13 +75,19 @@ class _ApiPageState extends State<ApiPage> {
     ));
   }
 
-  Future<void> _showMyDialog(String title, List creator, List genre,
-      int episodes, String image, int runtime_in_minutes, Cartoons cartoons) async {
-    
+  Future<void> _showMyDialog(
+      String title,
+      List creator,
+      List genre,
+      int episodes,
+      String image,
+      int runtime_in_minutes,
+      Cartoons cartoons) async {
     return showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
+          bool localIsFavorite = cartoons.isFavorite;
           return AlertDialog(
             title: Text(title),
             content: SingleChildScrollView(
@@ -107,14 +112,19 @@ class _ApiPageState extends State<ApiPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: isFavorite 
-                        ? Icon(Icons.favorite, color: Colors.pink)
-                        : Icon(Icons.favorite_border, color: Colors.grey),
-                    onPressed: () {
-                      setState(() {
-                        cartoons.isFavorite = true;
-                      });
+                  StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                      return IconButton(
+                        icon: localIsFavorite
+                            ? Icon(Icons.favorite, color: Colors.pink)
+                            : Icon(Icons.favorite_border, color: Colors.grey),
+                        onPressed: () {
+                          setState(() {
+                            localIsFavorite = !localIsFavorite;
+                          });
+                          cartoons.isFavorite = localIsFavorite;
+                        },
+                      );
                     },
                   ),
                   TextButton(
