@@ -9,6 +9,7 @@ class Cartoons {
   final int? episodes;
   final String? image;
   final int? id;
+  bool? isFavorite;
 
   Cartoons({
     required this.title,
@@ -20,6 +21,7 @@ class Cartoons {
     required this.episodes,
     required this.image,
     required this.id,
+    this.isFavorite = false,
   });
 
   factory Cartoons.fromJson(Map<String, dynamic> json) {
@@ -33,6 +35,7 @@ class Cartoons {
       episodes: json['episodes'],
       image: json['image'],
       id: json['id'],
+      isFavorite: json['isFavorite'],
     );
   }
 }
